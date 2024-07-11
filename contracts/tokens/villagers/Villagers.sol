@@ -32,6 +32,7 @@ contract Villager is ERC721Upgradeable, OwnableUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
     CountersUpgradeable.Counter private _tokenIds;
 
+    address public implementation;
     address public registry;
     string public baseURI;
     uint256 public mintPrice;
@@ -48,7 +49,9 @@ contract Villager is ERC721Upgradeable, OwnableUpgradeable {
         __ERC721_init("Villagers", "VLG");
         __Ownable_init();
 
-        registry = 0x000000006551c19487814612e58FE06813775758;
+        // Implementations and Registries can be found here https://docs.tokenbound.org/contracts/deployments
+        registry = 0x000000006551c19487814612e58FE06813775758; // for sepolia testing
+        implementation = 0x41C8f39463A868d3A88af00cd0fe7102F30E44eC; // for sepolia testing
         baseURI = "ipfs://xxx/";
     }
 
@@ -72,9 +75,9 @@ contract Villager is ERC721Upgradeable, OwnableUpgradeable {
         uint256 newItemId = _tokenIds.current();
         _safeMint(player, newItemId);
         address tbAccount = IRegistry(registry).createAccount(
-            registry,
+            implementation,
             0,
-            this.address,
+            address(this),
             newItemId,
             1,
             1
