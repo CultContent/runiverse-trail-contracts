@@ -83,6 +83,7 @@ typings/
 .dynamodb/
 
 docs/.env.example
+.env
 
 # VSCode settings
 .vscode/
@@ -98,3 +99,6 @@ Brewfile.lock.json
 
 # Performance profiling application
 .clinic
+
+artifacts/
+cache/
